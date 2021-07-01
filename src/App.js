@@ -3,36 +3,43 @@ import Board from './components/Board';
 import { calculateWinner } from './helpers';
 
 const App = () => {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [isXNext, setIsXNext] = useState(false);
+  const [history, setHistory] = useState([
+    { board: Array(9).fill(null), isXNext: true },
+  ]);
 
-  const winner = calculateWinner(board);
+  const [currentMove, setCurrentMove] = useState(0);
+
+  const current = history[currentMove];
+
+  const winner = calculateWinner(current.board);
 
   const message = winner
     ? `Winner is ${winner}`
-    : `Next player is ${isXNext ? 'X' : 'O'}`;
+    : `Next player is ${current.isXNext ? 'X' : 'O'}`;
 
   const markSquare = position => {
-    if (board[position] || winner) {
+    if (current.board[position] || winner) {
       return;
     }
-    setBoard(previous => {
-      return previous.map((square, idx) => {
+    setHistory(previous => {
+      const last = previous[previous.length - 1];
+
+      const newBoard = last.board.map((square, idx) => {
         if (idx === position) {
-          return isXNext ? 'X' : '0';
+          return last.isXNext ? 'X' : '0';
         }
         return square;
       });
+      return previous.concat({ board: newBoard, isXNext: !last.isXNext });
     });
-
-    setIsXNext(previous => !previous);
+    setCurrentMove(previous => previous + 1);
   };
 
   return (
     <div className="app">
       <h1>TIC TAC TOE!</h1>
       <h2>{message}</h2>
-      <Board board={board} markSquare={markSquare} />
+      <Board board={current.board} markSquare={markSquare} />
     </div>
   );
 };
