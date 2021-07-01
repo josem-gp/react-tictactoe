@@ -13,7 +13,7 @@ const App = () => {
     : `Next player is ${isXNext ? 'X' : 'O'}`;
 
   const markSquare = position => {
-    if (board[position]) {
+    if (board[position] || winner) {
       return;
     }
     setBoard(previous => {
