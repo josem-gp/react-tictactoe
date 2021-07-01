@@ -36,12 +36,16 @@ const App = () => {
     setCurrentMove(previous => previous + 1);
   };
 
+  const moveTo = move => {
+    setCurrentMove(move);
+  };
+
   return (
     <div className="app">
       <h1>TIC TAC TOE!</h1>
       <h2>{message}</h2>
       <Board board={current.board} markSquare={markSquare} />
-      <History history={history} />
+      <History history={history} moveTo={moveTo} currentMove={currentMove} />
     </div>
   );
 };
