@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Square = ({ value, clickFunction }) => {
+const Square = ({ value, clickFunction, isWinningSquare }) => {
   return (
     <button
       type="button"
@@ -8,6 +8,7 @@ const Square = ({ value, clickFunction }) => {
       onClick={() => {
         clickFunction();
       }}
+      style={{ fontWeight: isWinningSquare ? 'bold' : 'normal' }}
     >
       {value}
     </button>
