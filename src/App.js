@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Board from './components/Board';
+import History from './components/History';
 import { calculateWinner } from './helpers';
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
       <h1>TIC TAC TOE!</h1>
       <h2>{message}</h2>
       <Board board={current.board} markSquare={markSquare} />
+      <History history={history} />
     </div>
   );
 };
